@@ -1,5 +1,5 @@
 import React from 'react';
-import "bootswatch/dist/vapor/bootstrap.min.css";
+import "bootswatch/dist/lux/bootstrap.min.css";
 import Rotas from './Rotas';
 import NavBar from "../components/NavBar";
 
