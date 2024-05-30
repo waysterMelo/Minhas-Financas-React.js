@@ -16,7 +16,6 @@ class Home extends React.Component{
         axios.get(`http://localhost:8080/usuarios/${usuarioLogado.id}/saldo`)
         .then(response => {this.setState({saldo: response.data})}).catch(error => {console.log(error.response)});
 
-
     }
 
 render(){
