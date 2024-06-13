@@ -6,4 +6,4 @@ React.js: A aplicação foi desenvolvida utilizando a biblioteca React.js, que p
 
 CSS: Estilos foram aplicados utilizando bibliotecas como Bootstrap e Bootwatch para garantir uma aparência atraente e responsiva.
 
-![screencapture-localhost-3000-2024-05-29-15_22_33](https://github.com/waysterMelo/Minhas-Financas-React.js/assets/57998761/bfa0a816-059c-403e-9944-d41ff98fb704)
+![screencapture-localhost-3000-2024-05-31-10_29_25](https://github.com/waysterMelo/Minhas-Financas-React.js/assets/57998761/cace4095-3f51-47fc-a26d-9e2d006406d7)
