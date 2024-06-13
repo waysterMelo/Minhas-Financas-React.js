@@ -1,6 +1,6 @@
 import React from 'react';
 import UsuarioService from '../app/service/usuarioService';
-import localStorage from '../app/service/localStorageService';
+import LocalStorage from '../app/service/localStorageService';
 
 class Home extends React.Component{
 
@@ -15,11 +15,10 @@ class Home extends React.Component{
 
 
     componentDidMount(){
-        const usuarioLogado = localStorage.obterItem('_usuario_logado');
+        const usuarioLogado = LocalStorage.obterItem("_usuario_logado");
 
-        this.usuarioService.oberSaldoPorUsuario(usuarioLogado.id)
-        
-        .then(response => {this.setState({saldo: response.data})}).catch(error => {console.log(error.response)});
+        this.usuarioService.oberSaldoPorUsuario(usuarioLogado.id).then(response => {this.setState({saldo: response.data})})
+            .catch(error => {console.log(error.response)});
 
     }
 

@@ -1,5 +1,5 @@
 
-class localStorage{
+export default class LocalStorage{
     
 
     static adicionarItem(chave, valor){
@@ -11,5 +11,3 @@ class localStorage{
       return JSON.parse(item);
     }
 }
-
-export default localStorage;

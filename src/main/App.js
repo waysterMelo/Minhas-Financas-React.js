@@ -2,6 +2,8 @@ import React from 'react';
 import "bootswatch/dist/lux/bootstrap.min.css";
 import Rotas from './Rotas';
 import NavBar from "../components/NavBar";
+import "toastr/build/toastr.min";
+import "toastr/build/toastr.css";
 
 
 class App extends React.Component {
