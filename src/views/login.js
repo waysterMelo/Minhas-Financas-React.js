@@ -4,11 +4,7 @@ import Card from "../components/Card";
 import {withRouter} from "react-router-dom";
 import UsuarioService from '../app/service/usuarioService';
 import LocalStorage from "../app/service/localStorageService";
-<<<<<<< HEAD
-import {mensagemErro} from "../components/toastr";
-=======
-import { mensagemErro } from "../components/toarst"
->>>>>>> 0d534c1673e9c2e3e0f07bf014cd72233491c7c7
+import { mensagemErro } from "../components/toastr"
 
 class Login extends React.Component {
 

@@ -17,8 +17,40 @@ class CadastroUsuarios extends React.Component {
         senha:'',
         senharepeticao:''
 }
+validar() {
+    const msg = [];
+  
+    if (!this.state.nome.trim()) { // Verifica se o nome não está vazio após remover espaços em branco
+      msg.push('O nome é obrigatório');
+    }
+  
+    if (!this.state.email.trim()) { // Verifica se o email não está vazio após remover espaços em branco
+      msg.push('O email é obrigatório');
+    } else if (!this.state.email.match(/^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$/i)) { 
+      // Expressão regular melhorada e com flag 'i' para ignorar maiúsculas/minúsculas
+      msg.push('Email inválido');
+    }
+  
+    if (!this.state.senha || !this.state.senharepeticao) {
+      msg.push('Digite a senha 2 vezes');
+    } else if (this.state.senha !== this.state.senharepeticao) {
+      msg.push('As senhas devem ser iguais');
+    }
+  
+    return msg;
+  }
+
+
 
     cadastrar=()=>{
+
+        const msg = this.validar();
+
+        if(msg && msg.length > 0 ){
+            msg.forEach((msg, index) => { mensagemErro(msg)});
+            return false;
+        }
+
          const usuario = {
              nome: this.state.nome,
              email:this.state.email,
@@ -65,8 +97,8 @@ class CadastroUsuarios extends React.Component {
                             <input type="password" 
                                    id="inputRepitaSenha"
                                    className="form-control"
-                                   name="senha"
-                                   onChange={e => this.setState({senhaRepeticao: e.target.value})} />
+                                   name="Repetida"
+                                   onChange={e => this.setState({senharepeticao: e.target.value})} />
                         </FormGroup>
                         <button onClick={this.cadastrar} type="button" className="btn btn-success">
                             <i className="pi pi-save"></i> Salvar
