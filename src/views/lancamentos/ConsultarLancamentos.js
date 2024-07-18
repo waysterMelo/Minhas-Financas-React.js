@@ -6,6 +6,16 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import LancamentosTable from './lancamentosTable';
 
 class ConsultarLancamentos extends React.Component{
+
+    state = {
+        ano: '',
+        mes: '',
+        tipo: ''
+    }
+    buscar=()=>{
+        console.log(this.state)
+    }
+
     render(){
         const lista = [
             {label: "Selecione o mes....", value: ''},
@@ -41,17 +51,20 @@ class ConsultarLancamentos extends React.Component{
                         <div className='bs-component'>
 
                             <FormGroup htmlFor={"inputMes"} label={"Ano: "}>
-                              <input type={'date'} className={'form-control'} id={'inputAno'} placeholder={'Digite o ano'}/>
+                              <input  type={'date'} className={'form-control'} id={'inputAno'} value={this.state.ano}
+                                      onChange={ e => this.setState({ano: e.target.value})} placeholder={'Digite o ano'}/>
                             </FormGroup>
 
                             <FormGroup htmlFor={'inputMes'} label={'Mes:'}>
-                                <SelectMenu className={'form-control'} lista={lista}/>
+                                <SelectMenu id={"inputMes"} className={'form-control'} lista={lista} value={this.state.mes}
+                                onChange={ e => this.setState({mes: e.target.value})}/>
                             </FormGroup>
 
                             <FormGroup htmlFor={'inputTipo'} label={'Tipo lancamento'}>
-                                <SelectMenu id={'inputTipo'} className={'form-control'} lista={tipos}/>
+                                <SelectMenu id={'inputTipo'} className={'form-control'} lista={tipos} value={this.state.tipo}
+                                            onChange={ e => this.setState({tipo: e.target.value})}/>
                             </FormGroup>
-                            <button className='btn btn-primary' mr={3} mt={4}>
+                            <button className='btn btn-primary' mr={3} mt={4} onClick={this.buscar}>
                                     Buscar
                             </button>
                             <button className='btn btn-success' mt={4}>
@@ -62,8 +75,8 @@ class ConsultarLancamentos extends React.Component{
                 </div>
 
                 <div className='row mt-5'>
-                    <div class="col-md-12">
-                        <div class="bs-component">
+                    <div className="col-md-12">
+                        <div className="bs-component">
                             <LancamentosTable lancamentos={lancamentos} />
                         </div>
                     </div>
