@@ -1,16 +1,17 @@
 import React from "react";
+import currencyFormatter from "currency-formatter";
 
 export default props => {
 
 
-    const rows = props.lancamentos.map(Lancamento => {
+    const rows = props.lancamentos.map(lancamento => {
         return (
-            <tr key={Lancamento.id}>
-                <td>{Lancamento.descricao}</td>
-                <td>{Lancamento.valor}</td>
-                <td>{Lancamento.tipo}</td>
-                <td>{Lancamento.mes}</td>
-                <td>{Lancamento.status}</td>
+            <tr key={lancamento.id}>
+                <td>{lancamento.descricao}</td>
+                <td>{currencyFormatter.format(lancamento.valor, { locale: 'pt-BR' })}</td>
+                <td>{lancamento.tipo}</td>
+                <td>{lancamento.mes}</td>
+                <td>{lancamento.status}</td>
             </tr>
         )
     })
@@ -18,18 +19,18 @@ export default props => {
 
     return (
         <table className="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Mes</th>
-                <th scope="col">Situação</th> 
-            </tr>
-        </thead>
-        <tbody>
+            <thead>
+                <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Situação</th>
+                </tr>
+            </thead>
+            <tbody>
                 {rows}
-        </tbody>
+            </tbody>
         </table>
     )
 }

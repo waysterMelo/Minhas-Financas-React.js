@@ -1,28 +1,36 @@
 import ApiService from "../Apiservice";
 
-export default class LancamentosServices extends  ApiService{
+export default class LancamentosServices extends ApiService {
 
     constructor() {
-        super('/api/lancamentos');
+        super('/lancamentos');
     }
 
-    consultar(LancamentoFiltro){
+    consultar(LancamentoFiltro) {
 
         let params = `?ano=${LancamentoFiltro.ano}`;
 
-        if (LancamentoFiltro.mes){
+        if (LancamentoFiltro.mes) {
             params = `${params}&mes=${LancamentoFiltro.mes}`;
         }
 
-        if (LancamentoFiltro.tipo){
+        if (LancamentoFiltro.tipo) {
             params = `${params}&tipo=${LancamentoFiltro.tipo}`;
         }
 
-        if (LancamentoFiltro.status){
+        if (LancamentoFiltro.status) {
             params = `${params}&status=${LancamentoFiltro.status}`;
         }
 
+        if (LancamentoFiltro.usuario) {
+            params = `${params}&usuario=${LancamentoFiltro.usuario}`;
+        }
 
+        if (LancamentoFiltro.descricao) {
+            params = `${params}&descricao=${LancamentoFiltro.descricao}`;
+        }
+
+        return this.get(params);
 
     }
 

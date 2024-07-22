@@ -4,23 +4,46 @@ import SelectMenu from '../../components/SelectMenu';
 import Card from '../../components/Card';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import LancamentosTable from './lancamentosTable';
+import LancamentosService from '../../app/service/lancamentosServices';
+import LocalStorageService from "../../app/service/localStorageService";
 
-class ConsultarLancamentos extends React.Component{
+class ConsultarLancamentos extends React.Component {
 
     state = {
         ano: '',
         mes: '',
-        tipo: ''
+        tipo: '',
+        descricao: '',
+        lancamentos: []
     }
-    buscar=()=>{
+    buscar = () => {
         console.log(this.state)
     }
 
-    render(){
+
+    constructor() {
+        super();
+        this.service = new LancamentosService();
+    }
+
+    buscar = () => {
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+        const lancamentoFiltro = {
+            ano: this.state.ano,
+            mes: this.state.mes,
+            tipo: this.state.tipo,
+            descricao: this.state.descricao,
+            usuario: usuarioLogado.id
+        }
+
+        this.service.consultar(lancamentoFiltro).then(response => { this.setState({ lancamentos: response.data }) }).catch(error => { console.log(error) })
+    }
+
+    render() {
         const lista = [
-            {label: "Selecione o mes....", value: ''},
-            {label: "Janeiro ", value: 1},
-            {label:"Fevereiro", value: 2},
+            { label: "Selecione o mes....", value: '' },
+            { label: "Janeiro ", value: 1 },
+            { label: "Fevereiro", value: 2 },
             { label: "Março", value: 3 },
             { label: "Abril", value: 4 },
             { label: "Maio", value: 5 },
@@ -33,43 +56,46 @@ class ConsultarLancamentos extends React.Component{
             { label: "Dezembro", value: 12 }
         ]
 
-        const lancamentos = [
-            {id: 1, descricao: 'Salario', valor: 5000, mes: 1, tipo:'Receita', status:'Efetivado'}
-        ]
 
         const tipos = [
-            {label: 'Selecione...', value: ''},
-            {label: 'Despesa....', value: 'DESPESA'}
+            { label: 'Selecione...', value: '' },
+            { label: 'Despesa....', value: 'DESPESA' }
         ]
 
 
 
-        return(
+        return (
             <Card title={"Consulta Lancamentos"}>
                 <div className='row'>
                     <div className='col-md-6'>
                         <div className='bs-component'>
 
                             <FormGroup htmlFor={"inputMes"} label={"Ano: "}>
-                              <input  type={'date'} className={'form-control'} id={'inputAno'} value={this.state.ano}
-                                      onChange={ e => this.setState({ano: e.target.value})} placeholder={'Digite o ano'}/>
+                                <input className={'form-control'} id={'inputAno'} value={this.state.ano}
+                                    onChange={e => this.setState({ ano: e.target.value })} placeholder={'Digite o ano'} />
+                            </FormGroup>
+
+                            <FormGroup htmlFor={"inputDescricao"} label={"Descricao: "}>
+                                <input className={'form-control'} id={'inputDescricao'} value={this.state.descricao}
+                                    onChange={e => this.setState({ descricao: e.target.value })} placeholder={'Digite a descricao'} />
                             </FormGroup>
 
                             <FormGroup htmlFor={'inputMes'} label={'Mes:'}>
                                 <SelectMenu id={"inputMes"} className={'form-control'} lista={lista} value={this.state.mes}
-                                onChange={ e => this.setState({mes: e.target.value})}/>
+                                    onChange={e => this.setState({ mes: e.target.value })} />
                             </FormGroup>
 
                             <FormGroup htmlFor={'inputTipo'} label={'Tipo lancamento'}>
                                 <SelectMenu id={'inputTipo'} className={'form-control'} lista={tipos} value={this.state.tipo}
-                                            onChange={ e => this.setState({tipo: e.target.value})}/>
+                                    onChange={e => this.setState({ tipo: e.target.value })} />
                             </FormGroup>
                             <button className='btn btn-primary' mr={3} mt={4} onClick={this.buscar}>
-                                    Buscar
+                                Buscar
                             </button>
                             <button className='btn btn-success' mt={4}>
-                                    Cadastrar
+                                Cadastrar
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -77,7 +103,7 @@ class ConsultarLancamentos extends React.Component{
                 <div className='row mt-5'>
                     <div className="col-md-12">
                         <div className="bs-component">
-                            <LancamentosTable lancamentos={lancamentos} />
+                            <LancamentosTable lancamentos={this.state.lancamentos} />
                         </div>
                     </div>
                 </div>
