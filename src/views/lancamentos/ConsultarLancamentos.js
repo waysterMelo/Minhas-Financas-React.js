@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import LancamentosTable from './lancamentosTable';
 import LancamentosService from '../../app/service/lancamentosServices';
 import LocalStorageService from "../../app/service/localStorageService";
+import * as messages from '../../components/toastr';
+
 
 class ConsultarLancamentos extends React.Component {
 
@@ -27,6 +29,12 @@ class ConsultarLancamentos extends React.Component {
     }
 
     buscar = () => {
+
+        if (!this.state.ano) {
+            messages.mensagemErro("O preenchimento do campo Ano é obrigatório")
+            return false;
+        }
+
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
         const lancamentoFiltro = {
             ano: this.state.ano,
