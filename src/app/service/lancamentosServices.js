@@ -34,4 +34,9 @@ export default class LancamentosServices extends ApiService {
 
     }
 
+    deletar(id) {
+        return this.delete(`/${id}`);
+    }
+
+
 }
